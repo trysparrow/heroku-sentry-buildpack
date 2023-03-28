@@ -37,6 +37,10 @@ read_and_export "SENTRY_ORG"
 read_and_export "SENTRY_PROJECT"
 read_and_export "SENTRY_AUTH_TOKEN"
 
+if [[ -z "${SENTRY_AUTH_TOKEN}" ]]; then
+  echo "Auth not set, skipping sentry release creation"
+  exit 0
+fi
 
 VERSION=`sentry-cli releases propose-version`
 
