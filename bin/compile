@@ -19,6 +19,9 @@ export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 # SENTRY_ORG
 # SENTRY_PROJECT
 
+export SENTRY_AUTH_TOKEN=$(cat "${ENV_DIR}/${SENTRY_AUTH_TOKEN}")
+export SENTRY_ORG=$(cat "${ENV_DIR}/${SENTRY_ORG}")
+
 echo "Installing sentry" | indent
 
 npm install -g @sentry/cli
