@@ -13,12 +13,13 @@ ENV_DIR="$3"
 
 export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 
+echo "Starting Sentry Release"
 echo "Installing sentry" | indent
 
 npm install -g @sentry/cli
 
 
-echo "Setting ENVs" | indent
+echo "Setting envs" | indent
 
 # $SOURCE_VERSION gets set by heroku.
 # Make sure to have these envs:
@@ -52,4 +53,4 @@ sentry-cli releases set-commits "$VERSION" --auto
 
 sentry-cli releases finalize "$VERSION"
 
-echo "Done creating release" | indent
+echo "Done creating Sentry release"
