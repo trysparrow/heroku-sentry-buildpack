@@ -19,9 +19,7 @@ export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 # SENTRY_ORG
 # SENTRY_PROJECT
 
-ls $ENV_DIR
 
-cat $ENV_DIR/SENTRY_ORG
 
 # https://devcenter.heroku.com/articles/buildpack-api#bin-compile-usage
 function read_and_export() {
@@ -29,6 +27,7 @@ function read_and_export() {
 }
 
 read_and_export "SENTRY_ORG"
+read_and_export "SENTRY_PROJECT"
 
 echo "vars"
 echo "$SENTRY_PROJECT"
