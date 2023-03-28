@@ -19,7 +19,15 @@ export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 # SENTRY_ORG
 # SENTRY_PROJECT
 
-DIR=$(cd "$ENV_DIR/" && pwd)
+ls $ENV_DIR
+
+cat $ENV_DIR/SENTRY_ORG
+
+function read_and_export() {
+  export "$1=$(cat $ENV_DIR/$1)"
+}
+
+read_and_export("SENTRY_ORG")
 
 echo "vars"
 echo "$SENTRY_PROJECT"
