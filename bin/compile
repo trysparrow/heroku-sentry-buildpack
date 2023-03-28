@@ -1,5 +1,34 @@
 #!/usr/bin/env bash
 
-set -e
+# Ensure wildcards in globs match dotfiles too.
+shopt -s dotglob
 
-echo "heroku sentry upload finished"
+indent() {
+    sed -u 's/^/      /'
+}
+
+BUILD_DIR="$1"
+CACHE_DIR="$2"
+ENV_DIR="$3"
+
+export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
+
+# $SOURCE_VERSION gets set by heroku.
+# Make sure to have these envs:
+# SENTRY_AUTH_TOKEN
+# SENTRY_ORG
+# SENTRY_PROJECT
+
+echo "Installing sentry" | indent
+
+npm install -g @sentry/cli
+
+echo "Creating release in sentry" | indent
+
+sentry-cli releases new -p $SENTRY_PROJECT $SOURCE_VERSION
+
+sentry-cli releases set-commits "$SOURCE_VERSION" --commit "trysparrow/sparrow@$SOURCE_VERSION"
+
+sentry-cli releases finalize $SOURCE_VERSION
+
+echo "Done creating release" | indent
