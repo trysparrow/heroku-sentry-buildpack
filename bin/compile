@@ -19,9 +19,8 @@ export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 # SENTRY_ORG
 # SENTRY_PROJECT
 
-export SENTRY_AUTH_TOKEN=$(cat "${ENV_DIR}/${SENTRY_AUTH_TOKEN}")
-export SENTRY_ORG=$(cat "${ENV_DIR}/${SENTRY_ORG}")
-echo $SENTRY_ORG
+DIR=$(cd "$ENV_DIR/" && pwd)
+export SENTRY_AUTH_TOKEN="$(cat "${DIR}/${SENTRY_AUTH_TOKEN}")"
 
 echo "Installing sentry" | indent
 
@@ -32,7 +31,7 @@ echo $VERSION
 
 echo "Creating release in sentry" | indent
 
-sentry-cli releases new -p $SENTRY_PROJECT $VERSION
+sentry-cli releases new -p $SENTRY_PROJECT --org $SENTRY_ORG $VERSION
 
 sentry-cli releases set-commits "$VERSION" --auto
 
