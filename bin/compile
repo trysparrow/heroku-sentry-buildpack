@@ -21,17 +21,21 @@ export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 
 export SENTRY_AUTH_TOKEN=$(cat "${ENV_DIR}/${SENTRY_AUTH_TOKEN}")
 export SENTRY_ORG=$(cat "${ENV_DIR}/${SENTRY_ORG}")
+echo $SENTRY_ORG
 
 echo "Installing sentry" | indent
 
 npm install -g @sentry/cli
 
+VERSION=`sentry-cli releases propose-version`
+echo $VERSION
+
 echo "Creating release in sentry" | indent
 
-sentry-cli releases new -p $SENTRY_PROJECT $SOURCE_VERSION
+sentry-cli releases new -p $SENTRY_PROJECT $VERSION
 
-sentry-cli releases set-commits "$SOURCE_VERSION" --commit "trysparrow/sparrow@$SOURCE_VERSION"
+sentry-cli releases set-commits "$VERSION" --auto
 
-sentry-cli releases finalize $SOURCE_VERSION
+sentry-cli releases finalize $VERSION
 
 echo "Done creating release" | indent
