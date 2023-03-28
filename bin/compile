@@ -13,6 +13,13 @@ ENV_DIR="$3"
 
 export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 
+echo "Installing sentry" | indent
+
+npm install -g @sentry/cli
+
+
+echo "Setting ENVs" | indent
+
 # $SOURCE_VERSION gets set by heroku.
 # Make sure to have these envs:
 # SENTRY_AUTH_TOKEN
@@ -20,7 +27,7 @@ export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 # SENTRY_PROJECT
 
 
-
+# ENV variables are files in ENV_DIR 
 # https://devcenter.heroku.com/articles/buildpack-api#bin-compile-usage
 function read_and_export() {
   export "$1=$(cat $ENV_DIR/$1)"
@@ -28,14 +35,8 @@ function read_and_export() {
 
 read_and_export "SENTRY_ORG"
 read_and_export "SENTRY_PROJECT"
+read_and_export "SENTRY_AUTH_TOKEN"
 
-echo "vars"
-echo "$SENTRY_PROJECT"
-echo "$SENTRY_ORG"
-
-echo "Installing sentry" | indent
-
-npm install -g @sentry/cli
 
 VERSION=`sentry-cli releases propose-version`
 
