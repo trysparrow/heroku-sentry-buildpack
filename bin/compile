@@ -20,9 +20,6 @@ export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 # SENTRY_PROJECT
 
 DIR=$(cd "$ENV_DIR/" && pwd)
-export SENTRY_AUTH_TOKEN="$(cat "${DIR}/${SENTRY_AUTH_TOKEN}")"
-export SENTRY_PROJECT="$(cat "${DIR}/${SENTRY_PROJECT}")"
-export SENTRY_ORG="$(cat "${DIR}/${SENTRY_ORG}")"
 
 echo "vars"
 echo "$SENTRY_PROJECT"
