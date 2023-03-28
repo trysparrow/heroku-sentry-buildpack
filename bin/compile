@@ -24,6 +24,10 @@ export SENTRY_AUTH_TOKEN="$(cat "${DIR}/${SENTRY_AUTH_TOKEN}")"
 export SENTRY_PROJECT="$(cat "${DIR}/${SENTRY_PROJECT}")"
 export SENTRY_ORG="$(cat "${DIR}/${SENTRY_ORG}")"
 
+echo "vars"
+echo "$SENTRY_PROJECT"
+echo "$SENTRY_ORG"
+
 echo "Installing sentry" | indent
 
 npm install -g @sentry/cli
