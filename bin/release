@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "Release - heroku sentry buildpack"
+exit 0
