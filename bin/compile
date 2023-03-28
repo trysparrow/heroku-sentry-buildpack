@@ -23,11 +23,12 @@ ls $ENV_DIR
 
 cat $ENV_DIR/SENTRY_ORG
 
+# https://devcenter.heroku.com/articles/buildpack-api#bin-compile-usage
 function read_and_export() {
   export "$1=$(cat $ENV_DIR/$1)"
 }
 
-read_and_export("SENTRY_ORG")
+read_and_export "SENTRY_ORG"
 
 echo "vars"
 echo "$SENTRY_PROJECT"
