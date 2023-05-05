@@ -53,4 +53,7 @@ sentry-cli releases set-commits "$VERSION" --auto
 
 sentry-cli releases finalize "$VERSION"
 
+sentry-cli releases deploys "$VERSION" new -e staging
+sentry-cli releases deploys "$VERSION" new -e staging
+
 echo "Done creating Sentry release"
